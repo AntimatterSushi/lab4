@@ -19,6 +19,8 @@ fun createJson() = Json {
     useAlternativeNames = false
 }
 
+
+
 private const val TAG = "CampgroundsMain/"
 private val PARKS_API_KEY = BuildConfig.API_KEY
 private val CAMPGROUNDS_URL =
@@ -39,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         campgroundsRecyclerView = findViewById(R.id.campgrounds)
+        campgroundsRecyclerView.layoutManager = LinearLayoutManager(this)
 
         // TODO: Set up CampgroundAdapter with campgrounds
         val campgroundAdapter = CampgroundAdapter(this, campgrounds)
@@ -50,6 +53,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val client = AsyncHttpClient()
+        Log.i("KEYCHECK", "API key length = ${BuildConfig.API_KEY.length}")
         client.get(CAMPGROUNDS_URL, object : JsonHttpResponseHandler() {
             override fun onFailure(
                 statusCode: Int,
@@ -57,7 +61,7 @@ class MainActivity : AppCompatActivity() {
                 response: String?,
                 throwable: Throwable?
             ) {
-                Log.e(TAG, "Failed to fetch campgrounds: $statusCode")
+                Log.e(TAG, "Failed to fetch campgrounds: $statusCode response=$response", throwable)
             }
 
             override fun onSuccess(statusCode: Int, headers: Headers, json: JSON) {

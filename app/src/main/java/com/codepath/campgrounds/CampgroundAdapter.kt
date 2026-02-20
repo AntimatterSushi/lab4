@@ -55,7 +55,10 @@ class CampgroundAdapter(private val context: Context,
             val campground = campgrounds[absoluteAdapterPosition]
 
             val intent = Intent(context, DetailActivity::class.java)
-            intent.putExtra(CAMPGROUND_EXTRA, campground)
+            intent.putExtra("name", campground.name ?: "")
+            intent.putExtra("description", campground.description ?: "")
+            intent.putExtra("imageUrl", campground.imageUrl)
+            intent.putExtra("latLong", campground.latLong ?: "")
             context.startActivity(intent)
         }
     }

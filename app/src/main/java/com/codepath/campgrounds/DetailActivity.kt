@@ -26,16 +26,19 @@ class DetailActivity : AppCompatActivity() {
         campgroundImageIV = findViewById(R.id.campgroundImage)
 
         // TODO: Get the extra from the Intent
-        val campground = intent.getSerializableExtra(CAMPGROUND_EXTRA) as Campground
+        val name = intent.getStringExtra("name") ?: ""
+        val description = intent.getStringExtra("description") ?: ""
+        val imageUrl = intent.getStringExtra("imageUrl") ?: ""
+        val latLong = intent.getStringExtra("latLong") ?: ""
 
         // TODO:  Set the name, location, and description information
-        campgroundNameTV.text = campground.name
-        campgroundDescriptionTV.text = campground.description
-        campgroundLatLongTV.text = campground.latLong
+        campgroundNameTV.text = name
+        campgroundDescriptionTV.text = description
+        campgroundLatLongTV.text = latLong
 
         // TODO: Load the image using Glide
         Glide.with(this)
-            .load(campground.imageUrl)
+            .load(imageUrl)
             .into(campgroundImageIV)
     }
 }
